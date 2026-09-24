@@ -17,3 +17,8 @@ variable "instance_type" {
   description = "Tipo da instância EC2."
   type        = string
 }
+
+variable "user_data" {
+  description = "Script executado na primeira inicialização da EC2."
+  type        = string
+}

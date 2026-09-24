@@ -17,3 +17,8 @@ output "instance_public_ip" {
   description = "Endereço IPv4 público da instância EC2."
   value       = module.web.public_ip
 }
+
+output "app_url" {
+  description = "Endereço HTTP da aplicação."
+  value       = "http://${module.web.public_ip}"
+}

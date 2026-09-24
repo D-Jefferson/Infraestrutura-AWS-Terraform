@@ -1,0 +1,24 @@
+#!/bin/bash
+set -euo pipefail
+
+exec > >(tee -a /var/log/terraform-web-bootstrap.log) 2>&1
+
+dnf install -y docker curl-minimal
+systemctl enable --now docker
+
+app_dir=/opt/terraform-aws-nginx
+install -d -m 0755 "$app_dir"
+
+printf '%s' '${dockerfile_b64}' | base64 --decode > "$app_dir/Dockerfile"
+printf '%s' '${nginx_conf_b64}' | base64 --decode > "$app_dir/nginx.conf"
+printf '%s' '${index_html_b64}' | base64 --decode > "$app_dir/index.html"
+
+docker build --pull -t terraform-aws-nginx:local "$app_dir"
+docker run -d \
+  --name terraform-aws-nginx \
+  --restart unless-stopped \
+  -p 80:80 \
+  terraform-aws-nginx:local
+
+curl --fail --silent --show-error --retry 12 --retry-delay 2 --retry-connrefused \
+  http://127.0.0.1/health

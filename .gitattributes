@@ -1,0 +1,4 @@
+*.sh.tftpl text eol=lf
+app/Dockerfile text eol=lf
+app/nginx.conf text eol=lf
+app/index.html text eol=lf
