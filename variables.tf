@@ -10,6 +10,12 @@ variable "environment" {
   default     = "dev"
 }
 
+variable "instance_type" {
+  description = "Tipo da instância EC2 usada pela aplicação."
+  type        = string
+  default     = "t3.micro"
+}
+
 variable "project_name" {
   description = "Nome do projeto usado nas tags dos recursos."
   type        = string

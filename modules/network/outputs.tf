@@ -6,4 +6,6 @@ output "vpc_id" {
 output "public_subnet_id" {
   description = "ID da subnet pública."
   value       = aws_subnet.public.id
+
+  depends_on = [aws_route_table_association.public]
 }
