@@ -15,3 +15,9 @@ variable "project_name" {
   type        = string
   default     = "terraform-aws-nginx"
 }
+
+variable "vpc_cidr" {
+  description = "Bloco IPv4 da VPC. A primeira subnet /24 será usada pela aplicação."
+  type        = string
+  default     = "10.42.0.0/16"
+}
